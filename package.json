@@ -1,6 +1,6 @@
 {
 	"name": "@hualvwang/lens-ext-invaders",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"description": "Space Invaders for Lens",
 	"publisher": "IRATA Inc",
 	"main": "dist/main.js",
