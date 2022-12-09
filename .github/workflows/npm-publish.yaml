@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: npm pack
-      - run: npm publish
+      - run: npm version ${GITHUB_REF#refs/tags/}
+      - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
