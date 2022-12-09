@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies and build extension
         run: |
           yarn
-          yarn test
+          yarn test --passWithNoTests
           
   publish-npm:
     runs-on: ubuntu-latest

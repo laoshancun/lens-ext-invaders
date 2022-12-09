@@ -1,3 +1,4 @@
+import "./ClusterPage.scss"
 import React, { useEffect, useState } from "react";
 import { observable ,IObservableArray} from "mobx";
 import { KubeObjectMetadata } from "@k8slens/extensions/dist/src/common/k8s-api/kube-object";
@@ -38,22 +39,19 @@ const ClusterPage = (): JSX.Element => {
   }, [podsStore])
 
   return (
-    <div className="TabLayout">
-      <main>
-        <div className="ItemListLayout flex column">
-          <div className="header flex gaps align-center">
-            <h5 className="flex gaps align-center">
-              <span>Space Invaders</span>
-            </h5>
-            <div className="box right">
-              <Renderer.Component.NamespaceSelectFilter id="test" />
-            </div>
-          </div>
-          <Game pods={pods} />
+    <Renderer.Component.TabLayout className="ClusterPage">
+      <header className="flex gaps align-center">
+        <h2 className="flex gaps align-center">
+          <span>Space Invaders</span>
+          <Renderer.Component.Icon material="info" tooltip="" />
+        </h2>
+        <div className="box right">
+          <Renderer.Component.NamespaceSelectFilter id="test" />
         </div>
-      </main>
-    </div>
-  )
+      </header>
+      <Game pods={pods} />
+    </Renderer.Component.TabLayout>
+  );
 }
 
 export default ClusterPage

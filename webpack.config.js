@@ -7,8 +7,8 @@ module.exports = [
     entry: "./main.ts",
     context: __dirname,
     target: "electron-main",
-    mode: "development",
-    devtool: "eval-source-map",
+    mode: "production",
+    // devtool: "eval-source-map",
     module: {
       rules: [
         {
@@ -24,6 +24,14 @@ module.exports = [
           exclude: /node_modules/,
 
         },
+        {
+          test: /\.s?css$/,
+          use: [
+            "style-loader",
+            "css-loader",
+            "sass-loader",
+          ]
+        }
       ],
     },
     externals: [
@@ -35,7 +43,7 @@ module.exports = [
       }
     ],
     optimization: {
-      minimize: false,
+      minimize: true,
     },
     resolve: {
       extensions: [".tsx", ".ts", ".js"],
@@ -50,8 +58,8 @@ module.exports = [
     entry: "./renderer.tsx",
     context: __dirname,
     target: "electron-renderer",
-    mode: "development",
-    devtool: "eval-source-map",
+    mode: "production",
+    // devtool: "eval-source-map",
     module: {
       rules: [
         {
@@ -66,10 +74,18 @@ module.exports = [
           ],
           exclude: /node_modules/,
         },
+        {
+          test: /\.s?css$/,
+          use: [
+            "style-loader",
+            "css-loader",
+            "sass-loader",
+          ]
+        }
       ],
     },
     optimization: {
-      minimize: false,
+      minimize: true,
     },
     externals: [
       {

@@ -1,3 +1,4 @@
+import "./Game.scss"
 import React, { memo, useState, useLayoutEffect } from "react"
 import { Renderer } from "@k8slens/extensions";
 import p5 from "p5";
@@ -36,7 +37,6 @@ const sketch = (pods: IObservableArray<Renderer.K8sApi.KubeObject<KubeObjectMeta
     const container = document.getElementById("p5_canvas_container");
     const canvas = p.createCanvas(container.offsetWidth, container.clientHeight + 100);
     canvas.parent(container);
-    canvas.style("position", "relative");
     canvas.attribute("tabindex", "1");
     p.frameRate(24);
     invaders = new Invaders({
@@ -172,7 +172,7 @@ const Game = memo(({ pods }: Props): JSX.Element => {
 
 
   return (
-    <div id='p5_canvas_container' className="flex box column grow"></div>
+    <div id='p5_canvas_container' className="flex box column grow game"></div>
   )
 })
 
