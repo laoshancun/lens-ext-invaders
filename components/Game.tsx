@@ -3,11 +3,11 @@ import { Renderer } from "@k8slens/extensions";
 import p5 from "p5";
 import Invaders from "./Invaders";
 import Player from "./Player";
-import { IObservableArray } from "mobx";
+import { IObservableArray, observe } from "mobx";
 import Particle from "./Particle";
 import { KubeObjectMetadata } from "@k8slens/extensions/dist/src/common/k8s-api/kube-object";
 
-type Props = { pods: IObservableArray<Renderer.K8sApi.KubeObject<KubeObjectMetadata, any, any>> }
+type Props = { pods?: IObservableArray<Renderer.K8sApi.KubeObject<KubeObjectMetadata, any, any>> }
 
 let keyboardEvenListener: (ev: KeyboardEvent) => void
 let mouseEvenListener: (ev: Event) => void;
@@ -22,17 +22,17 @@ const sketch = (pods: IObservableArray<Renderer.K8sApi.KubeObject<KubeObjectMeta
   let enableParticles = false;
   let lastMouseTarget: EventTarget;
   let started = false;
-  const gameImage = p.loadImage("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/11a10a01-ac23-4fea-ad5a-b51f53084159/d5eu5dw-11a48688-3762-4f92-ba46-ebf94abe51b1.png/v1/fill/w_900,h_389,strp/space_invaders_logo__us__by_ringostarr39_d5eu5dw-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD0zODkiLCJwYXRoIjoiXC9mXC8xMWExMGEwMS1hYzIzLTRmZWEtYWQ1YS1iNTFmNTMwODQxNTlcL2Q1ZXU1ZHctMTFhNDg2ODgtMzc2Mi00ZjkyLWJhNDYtZWJmOTRhYmU1MWIxLnBuZyIsIndpZHRoIjoiPD05MDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.0wP1LBCQjWzqUQ5czHR2NjUv9iaiB2lUp_y-d9FuX-8");
+  const gameImage = p.loadImage("https://hm.hualv.com/tools/open-lens/lens-ext-invaders/images/space_invaders_logo-fullview.png");
 
   const setup = () => {
     keyboardEvenListener && document.removeEventListener("keydown", keyboardEvenListener);
     mouseEvenListener && document.removeEventListener("mousedown", mouseEvenListener);
     windowResizeEvenListener && document.removeEventListener("resize", windowResizeEvenListener);
-    const playerImage = p.loadImage("https://i.imgur.com/cCmEvHN.png");
-    const greenAlien = p.loadImage("https://i.imgur.com/fqeDYa0.png");
-    const redAlien = p.loadImage("https://i.imgur.com/iHKEnRq.png");
-    const yellowAlien = p.loadImage("https://i.imgur.com/lVEg9GG.png");
-    const orangeAlien = p.loadImage("https://i.imgur.com/LRYWNG0.png");
+    const playerImage = p.loadImage("https://hm.hualv.com/tools/open-lens/lens-ext-invaders/images/cCmEvHN.png");
+    const greenAlien = p.loadImage("https://hm.hualv.com/tools/open-lens/lens-ext-invaders/images/fqeDYa0.png");
+    const redAlien = p.loadImage("https://hm.hualv.com/tools/open-lens/lens-ext-invaders/images/iHKEnRq.png");
+    const yellowAlien = p.loadImage("https://hm.hualv.com/tools/open-lens/lens-ext-invaders/images/lVEg9GG.png");
+    const orangeAlien = p.loadImage("https://hm.hualv.com/tools/open-lens/lens-ext-invaders/images/LRYWNG0.png");
     const container = document.getElementById("p5_canvas_container");
     const canvas = p.createCanvas(container.offsetWidth, container.clientHeight + 100);
     canvas.parent(container);
@@ -42,6 +42,7 @@ const sketch = (pods: IObservableArray<Renderer.K8sApi.KubeObject<KubeObjectMeta
     invaders = new Invaders({
       greenAlien, yellowAlien, orangeAlien, redAlien
     }, p, pods);
+
     player = new Player(playerImage, p, invaders);
 
     const starter = (event: Event) => {
