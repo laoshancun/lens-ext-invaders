@@ -133,7 +133,7 @@ class Invaders {
 
       const podIds = this.pods.map((p) => p.getId());
       this.aliens.forEach((alien, index) => {
-        if (!podIds.includes(alien.pod.getId())) {
+        if (!podIds.includes(alien.pod.getId()) || alien.hits>1) {
           this.aliens.splice(index, 1);
         }
       })
@@ -186,7 +186,7 @@ class Invaders {
 
     makeABottomAlienShoot(bottomAliens: Array<Alien>): void {
       const shootingAlien = this.p5.random(bottomAliens.filter((a) => a.hits === 0));
-      const bullet = new AlienBullet(shootingAlien.x + 10, shootingAlien.y + 10, this.p5);
+      const bullet = new AlienBullet(shootingAlien.x + 16, shootingAlien.y + 10, this.p5);
       this.bullets.push(bullet);
       this.timeSinceLastBullet = 0;
     }

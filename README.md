@@ -9,20 +9,17 @@ Alien 👾 = pod on cluster.
 
 ## Install
 
+- Switch to the Extensions view (CMD+SHIFT+E on macOS) on Lens.
+- Enter `@hualvwang/lens-ext-invaders` into the Install Extension box.
+- Click on the Install button.
+
+OR
+
 ```bash
 cd ~ && git clone https://github.com/chenhunghan/lens-ext-invaders.git
 cd lens-ext-invaders && yarn && yarn build
 ln -s ~/lens-ext-invaders ~/.k8slens/extensions/lens-ext-invaders
 ```
-
-OR
-
-Copy the `.tgz` link in [Release](https://github.com/chenhunghan/lens-ext-invaders/releases)
-
-Add install the extension by paste the link in Lens -> Extension
-
-![intstall](https://i.imgur.com/oFzyvGG.png)
-
 
 ## Acknowledgements
 

@@ -1,0 +1,41 @@
+on:
+  release:
+    types: [created]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false # otherwise, the token used is the GH_TOKEN, instead of your personal token
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies and build extension
+        run: |
+          yarn
+          yarn test --passWithNoTests
+          
+  publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false # otherwise, the token used is the GH_TOKEN, instead of your personal token
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+      - run: |
+          git config --local user.email "github-action@github.com"
+          git config --local user.name "Github Action Bot"
+          npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version --no-commit-hooks
+      - run: |
+          yarn
+          yarn build
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}

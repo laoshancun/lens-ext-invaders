@@ -1,6 +1,7 @@
 import p5 from "p5";
 import { Renderer } from "@k8slens/extensions";
 import { AlienImages } from "./Invaders";
+import { KubeApi } from "@k8slens/extensions/dist/src/common/k8s-api/kube-api";
 
 class Alien {
 
@@ -25,8 +26,15 @@ class Alien {
   }
 
   bulletHit(): number {
-    this.pod.delete();
-    return this.hits += 1;
+    if (this.hits < 1) {
+      Renderer.K8sApi.podsApi.delete({
+        namespace: this.pod.metadata.namespace,
+        name: this.pod.getName(),
+      });
+    }
+    this.hits += 1;
+    console.log(this.pod.getName(),this.hits)
+    return this.hits;
   }
 
   draw(): void {

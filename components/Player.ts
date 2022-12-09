@@ -32,13 +32,13 @@ class Player {
   }
 
   update(): void {
-    if (this.isMovingRight) {
-      this.x += 5;
-    } else if (this.isMovingLeft) {
-      this.x -= 5;
-    } else {
-      this.x = this.p5.width / 2;
-    }
+    // if (this.isMovingRight) {
+    //   this.x += 5;
+    // } else if (this.isMovingLeft) {
+    //   this.x -= 5;
+    // } else {
+    //   this.x = this.p5.width / 2;
+    // }
     this.y = this.p5.windowHeight - Math.max(210, this.p5.windowHeight / 3.8);
     if(this.invaders.aliens.find((a) => a.y >= this.p5.height)) {
       this.lives = 0;
@@ -124,21 +124,24 @@ class Player {
   }
 
   moveLeft(): void {
-    this.isMovingRight = false;
-    this.isMovingLeft = true;
+    // this.isMovingRight = false;
+    // this.isMovingLeft = true;
+    this.x -= 10;
   }
   moveRight(): void {
-    this.isMovingLeft = false;
-    this.isMovingRight = true;
+    // this.isMovingLeft = false;
+    // this.isMovingRight = true;
+    this.x += 10;
   }
 
   stop(): void {
-    this.isMovingLeft = false;
-    this.isMovingRight = false;
+    // this.isMovingLeft = false;
+    // this.isMovingRight = false;
+    this.x = this.p5.width / 2;
   }
 
   shoot(): void {
-    this.bullets.push(new PlayerBullet(this.x + 12, this.y, this.p5));
+    this.bullets.push(new PlayerBullet(this.x + 21, this.y, this.p5));
   }
 }
 
